@@ -1,0 +1,23 @@
+.horizontal-card {
+  flex-direction: row;
+  display: flex;
+  flex-basis: 50ex;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.horizontal-card .card-image {
+    flex: 1
+}
+
+.horizontal-card .card-image .image {
+    min-height: 100%
+}
+
+.horizontal-card .card-content {
+    flex: 1
+}
+
+.horizontal-card .card-content.is-right {
+    flex-direction: row-reverse
+}

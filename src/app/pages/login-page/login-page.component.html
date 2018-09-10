@@ -1,0 +1,63 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title pacifico larger-text">
+        Adocica Mel Store
+      </h1>
+
+      <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="notification is-danger" *ngIf="error">
+            <button class="delete"></button>
+            {{error.translated_message}}
+          </div>
+          <form [formGroup]="form">
+            <div class="field">
+              <div class="control" id="emailControl">
+                <input class="input is-large" type="email" placeholder="Usuário" formControlName="username"
+                  [ngClass]="{'is-danger': (!form.controls.username.valid && !form.controls.username.pristine)}">
+                <span class="tag is-danger" *ngIf="!form.controls.username.valid && !form.controls.username.pristine">E-mail inválido</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                  <input class="input is-large" type="password" placeholder="Senha" formControlName="password"
+                  [ngClass]="{'is-danger': (!form.controls.password.valid && !form.controls.password.pristine)}">
+                <span class="tag is-danger" *ngIf="!form.controls.password.valid && !form.controls.password.pristine">Senha inválida</span>
+              </div>
+            </div>
+
+            <p>
+              <button (click)="submit()" class="button is-primary is-outlined is-inverted is-large is-fullwidth" >
+                ENTRAR
+              </button>
+              <br>
+              <a routerLink="/signup" class="button is-text is-fullwidth">AINDA NÃO SOU CADASTRADO</a>
+            </p>
+            <hr>
+            <p>
+              <button class="button is-text is-fullwidth">TERMOS DE USO</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Termos de uso</p>
+      <button class="delete"></button>
+    </header>
+    <section class="modal-card-body">
+      Aqui vão os termos de uso do site
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button">OK</button>
+    </footer>
+  </div>
+</div>
