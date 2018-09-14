@@ -3,13 +3,18 @@
       <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img src="{{product.image}}" alt="Image">
+            <img src="{{product.productImage}}" alt="Image">
           </figure>
         </div>
         <div class="card-content">
           <div class="content">
-            {{product.title}}
+            {{product.productName}}
             <br>
+            <div class="tags">
+              <span *ngFor="let tag of product.tags" class="tag">
+                {{tag}}
+              </span>
+            </div>
             <h1 class="has-text-centered">
               R$ {{product.price | number: '1.2-2'}}
             </h1>

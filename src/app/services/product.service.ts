@@ -12,7 +12,9 @@ export class ProductService {
   constructor(private http: Http) { }
 
   getProducts() {
-    return this.http.get(environment.apiBaseUrl + 'v2/59506124120000680c8c78d8')
+    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
+    let options = new RequestOptions({headers: headers});
+    return this.http.get(environment.productServiceInterface.url + "/v1/products", options)
     .pipe(
       map((response:Response) => {
         return response.json();
@@ -40,5 +42,11 @@ export class ProductService {
         return response.json();
       })
     );
+  }
+
+  importProduct(requestData: any) {
+    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
+    let options = new RequestOptions({headers: headers});
+    return this.http.post(environment.productServiceInterface.url + "/v1/products", requestData, options);
   }
 }

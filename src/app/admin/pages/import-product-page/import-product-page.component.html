@@ -36,6 +36,7 @@
                             <option *ngFor="let vendor of vendors" [value]="vendor.value">{{vendor.name}}</option>
                           </select>
                         </div>
+                        <span class="tag is-danger" *ngIf="!form.controls.vendor.valid && !form.controls.vendor.pristine">Fornecedor inválido</span>
                       </div>
                   </div>
                 </div>
@@ -49,6 +50,7 @@
                   <div class="field">
                     <div class="control" [ngClass]="{'is-loading': loadingProduct}">
                       <input formControlName="productIdentifier" (change)="getProductData()" class="input" type="text" placeholder="Informe o identificador do produto">
+                      <span class="tag is-danger" *ngIf="!form.controls.productIdentifier.valid && !form.controls.productIdentifier.pristine">Identificador do produto inválido</span>
                     </div>
                   </div>
                 </div>
@@ -62,6 +64,7 @@
                   <div class="field">
                     <div class="control">
                       <input formControlName="price" class="input" type="text" placeholder="Informe o preço">
+                      <span class="tag is-danger" *ngIf="!form.controls.price.valid && !form.controls.price.pristine">Preço inválido</span>
                     </div>
                   </div>
                 </div>
@@ -74,7 +77,8 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <input class="input" type="tags" placeholder="Informe as tags">
+                      <input formControlName="tags" class="input" type="text" placeholder="Informe as tags">
+                      <span class="tag is-danger" *ngIf="!form.controls.tags.valid && !form.controls.tags.pristine">Tags inválidas</span>
                     </div>
                   </div>
                 </div>
@@ -105,7 +109,7 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <button class="button is-primary">
+                      <button class="button is-primary" (click)="submit()">
                         Importar
                       </button>
                     </div>
