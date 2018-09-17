@@ -12,9 +12,7 @@ export class ProductService {
   constructor(private http: Http) { }
 
   getProducts() {
-    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
-    let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.productServiceInterface.url + "/v1/products", options)
+    return this.http.get(environment.productServiceInterface.url + "/v1/products")
     .pipe(
       map((response:Response) => {
         return response.json();
