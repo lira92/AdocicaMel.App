@@ -88,13 +88,14 @@
                   <div class="column is-offset-one-fifth">
                     <div class="horizontal-card card">
                         <div class="card-image">
-                          <figure class="image is-4by3">
+                          <figure class="image is-2by3">
                             <img src="{{product.productImage}}" alt="Placeholder image">
                           </figure>
                         </div>
                         <div class="card-content">                      
                           <div class="content">
                             <h1>{{product.productName}}</h1>
+                            <h3>Custo: R$ {{product.price | number: '1.2-2'}}</h3>
                             <p>{{product.productDescription}}</p>
                           </div>
                         </div>
