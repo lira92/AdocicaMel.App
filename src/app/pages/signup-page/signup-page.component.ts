@@ -14,7 +14,7 @@ export class SignupPageComponent implements OnInit {
   public form: FormGroup;
   public errors: any[] = [];
 
-  constructor(private fb: FormBuilder, private ui:Ui, private router:Router) {
+  constructor(private fb: FormBuilder, private ui: Ui, private router: Router) {
     this.form = this.fb.group({
       firstName: ['', Validators.compose([
         Validators.minLength(3),

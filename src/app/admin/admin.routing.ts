@@ -3,15 +3,18 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminHomePageComponent } from './pages/admin-home-page/admin-home-page.component';
 import { ImportProductPageComponent } from './pages/import-product-page/import-product-page.component';
+import { AuthService } from '../services/auth.service';
 
 const adminRoutes: Routes = [
     {
       path: '',
-      component: AdminHomePageComponent
+      component: AdminHomePageComponent,
+      canActivate: [AuthService]
     },
     {
       path: 'import-product',
-      component: ImportProductPageComponent
+      component: ImportProductPageComponent,
+      canActivate: [AuthService]
     }
   ];
 
@@ -20,5 +23,3 @@ const adminRoutes: Routes = [
     exports: [RouterModule]
 })
 export class AdminRoutingModule { }
-  
-  

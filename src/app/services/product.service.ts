@@ -2,49 +2,48 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { BaseService } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService extends BaseService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    super();
+  }
 
   getProducts() {
-    return this.http.get(environment.productServiceInterface.url + "/v1/products")
+    return this.http.get(environment.productServiceInterface.url + '/v1/products')
     .pipe(
-      map((response:Response) => {
+      map((response) => {
         return response.json();
       })
     );
   }
 
   getVendorProduct(productIdentifier: Number, vendor: String) {
-    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
-    let options = new RequestOptions({headers: headers});
+    const options = new RequestOptions({headers: this.getHeaders()});
     return this.http.get(environment.productServiceInterface.url + `/vendors/${vendor}/products/${productIdentifier}`, options)
     .pipe(
-      map((response:Response) => {
+      map((response) => {
         return response.json();
       })
     );
   }
 
   getSupportedVendors() {
-    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
-    let options = new RequestOptions({headers: headers});
-    return this.http.get(environment.productServiceInterface.url + "/vendors", options)
+    const options = new RequestOptions({headers: this.getHeaders()});
+    return this.http.get(environment.productServiceInterface.url + '/vendors', options)
     .pipe(
-      map((response:Response) => {
+      map((response) => {
         return response.json();
       })
     );
   }
 
   importProduct(requestData: any) {
-    let headers = new Headers({ 'Ocp-Apim-Subscription-Key': environment.productServiceInterface.SubscriptionKey });
-    let options = new RequestOptions({headers: headers});
-    return this.http.post(environment.productServiceInterface.url + "/v1/products", requestData, options);
+    const options = new RequestOptions({headers: this.getHeaders()});
+    return this.http.post(environment.productServiceInterface.url + '/v1/products', requestData, options);
   }
 }

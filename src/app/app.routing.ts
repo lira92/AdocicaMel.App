@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: 'signup', component: SignupPageComponent },
     { path: 'cart', canActivate: [AuthService], component: CartPageComponent },
     { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-]
+];
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes)],

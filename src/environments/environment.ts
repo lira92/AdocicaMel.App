@@ -6,14 +6,12 @@ export const environment = {
   production: false,
   authService: {
     baseUrl: 'https://adocicamel.auth0.com/',
-    clientId: 'Ogd6yezRELPImCpuEWkhYXMcyD6aZx5K',
-    clienteSecret: '4pueg3dYx2fZDSiESlgfG9Hkfq3_tfyGH_6L_bOvGvPcDkg2vEvti-drjXXXcLgg',
-    audience: 'https://adocicamel.auth0.com/api/v2/'
+    clientId: 'SuzVL01cWofNszaE9JPNEVIAp6rlGlcN',
+    clienteSecret: 'olyuH7ckEwEaMlmgJSGrYdO3CtdaakCIevZZeWOulDTGerxrl2WHkRZDTALii3KO',
+    audience: 'http://adocicacel.com.br/api'
   },
-  apiBaseUrl: "http://www.mocky.io/",
   productServiceInterface: {
-    url: "https://adocicamel.azure-api.net",
-    SubscriptionKey: "b19ad0ad208345e986dcbe1abe38fbbb"
+    url: "https://adocicamel.azure-api.net"
   }
 };
 

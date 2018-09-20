@@ -1,49 +1,53 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { Router, CanActivate } from '@angular/router';
+import { Router } from '@angular/router';
+import { BaseService } from './base.service';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService extends BaseService {
 
-  constructor(private http: Http, private router:Router) { }
-  
+  constructor(private http: Http, private router: Router) {
+    super();
+  }
+
+  tokenIsValid() {
+    return moment.utc(localStorage.getItem('smsi.expires'), 'YYYY-MM-DDTHH:mm:ssZ') <= moment.utc();
+  }
+
   canActivate() {
-    if(!localStorage.getItem('adocicamel.token')) {
+    if (!localStorage.getItem('adocicamel.token') || !this.tokenIsValid()) {
         this.router.navigate(['/login']);
         return false;
     }
 
     return true;
   }
-  
+
   authenticate(data: any) {
-    var dt = `grant_type=password&username=${data.username}&password=${data.password}&audience=${environment.authService.audience}&scope=openid&client_id=${environment.authService.clientId}&client_secret=${environment.authService.clienteSecret}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({headers: headers});
+    const dt = `grant_type=password&username=${data.username}&password=${data.password}&audience=${environment.authService.audience}` +
+    `&scope=openid&client_id=${environment.authService.clientId}&client_secret=${environment.authService.clienteSecret}`;
+    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    const options = new RequestOptions({headers: headers});
     return this.http
-      .post(environment.authService.baseUrl + "oauth/token", dt, options)
+      .post(environment.authService.baseUrl + 'oauth/token', dt, options)
       .pipe(
-        map((response:Response) => {
+        map((response) => {
           return response.json();
         })
       );
   }
 
   getUserInfo() {
-    let access_token = localStorage.getItem('adocicamel.token');
-    let headers = new Headers(
-      { 'Authorization': `Bearer ${access_token}` }
-    );
-    let options = new RequestOptions({headers: headers});
+    const options = new RequestOptions({headers: this.getHeaders()});
     return this.http
-      .get(environment.authService.baseUrl + "userinfo", options)
+      .get(environment.authService.baseUrl + 'userinfo', options)
       .pipe(
-        map((response:Response) => {
+        map((response) => {
           return response.json();
         })
       );
