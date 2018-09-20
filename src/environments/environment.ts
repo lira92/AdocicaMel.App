@@ -11,7 +11,7 @@ export const environment = {
     audience: 'http://adocicacel.com.br/api'
   },
   productServiceInterface: {
-    url: "https://adocicamel.azure-api.net"
+    url: 'https://adocicamel.azure-api.net'
   }
 };
 
