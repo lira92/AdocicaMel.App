@@ -8,17 +8,17 @@ import { CartService } from '../../../services/cart.service';
   styleUrls: ['./sub-menu.component.css']
 })
 export class SubMenuComponent implements OnInit {
-  public totalItems:Number = 0;
-  public user:string = '';
+  public totalItems: Number = 0;
+  public user = '';
 
-  constructor(private cartService:CartService, private router:Router) {
+  constructor(private cartService: CartService, private router: Router) {
     this.cartService.cartChange.subscribe((data) => {
       this.totalItems = data.length;
-    })
+    });
 
-    var data:any = JSON.parse(localStorage.getItem('adocicamel.user'));
-    if(data) {
-      this.user = data.name;
+    const userData: any = JSON.parse(localStorage.getItem('adocicamel.user'));
+    if (userData) {
+      this.user = userData.name;
     }
 
     this.cartService.load();
@@ -30,6 +30,6 @@ export class SubMenuComponent implements OnInit {
   logout() {
     localStorage.removeItem('adocicamel.token');
     localStorage.removeItem('adocicamel.user');
-    this.router.navigateByUrl('/login');
+    this.user = null;
   }
 }

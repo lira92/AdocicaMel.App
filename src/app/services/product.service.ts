@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 
 @Injectable({
@@ -9,41 +8,27 @@ import { BaseService } from './base.service';
 })
 export class ProductService extends BaseService {
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     super();
   }
 
   getProducts() {
-    return this.http.get(environment.productServiceInterface.url + '/v1/products')
-    .pipe(
-      map((response) => {
-        return response.json();
-      })
-    );
+    return this.http
+      .get<any>(environment.productServiceInterface.url + '/v1/products');
   }
 
   getVendorProduct(productIdentifier: Number, vendor: String) {
-    const options = new RequestOptions({headers: this.getHeaders()});
-    return this.http.get(environment.productServiceInterface.url + `/vendors/${vendor}/products/${productIdentifier}`, options)
-    .pipe(
-      map((response) => {
-        return response.json();
-      })
-    );
+    return this.http
+      .get<any>(environment.productServiceInterface.url + `/vendors/${vendor}/products/${productIdentifier}`, {headers: this.getHeaders()});
   }
 
   getSupportedVendors() {
-    const options = new RequestOptions({headers: this.getHeaders()});
-    return this.http.get(environment.productServiceInterface.url + '/vendors', options)
-    .pipe(
-      map((response) => {
-        return response.json();
-      })
-    );
+    return this.http
+      .get<any>(environment.productServiceInterface.url + '/vendors', {headers: this.getHeaders()});
   }
 
   importProduct(requestData: any) {
-    const options = new RequestOptions({headers: this.getHeaders()});
-    return this.http.post(environment.productServiceInterface.url + '/v1/products', requestData, options);
+    return this.http
+      .post<any>(environment.productServiceInterface.url + '/v1/products', requestData, {headers: this.getHeaders()});
   }
 }

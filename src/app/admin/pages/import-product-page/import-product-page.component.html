@@ -19,9 +19,14 @@
           </div>
         </div>
       </div>
-
       <div class="columns is-multiline">
           <div class="column is-9">
+            <div class="notification is-danger" *ngIf="errors.length > 0">
+              <button class="delete"></button>
+              <ul>
+                <li *ngFor="let error of errors">{{error.message}}</li>
+              </ul>
+            </div>
             <form [formGroup]="form">
               <div class="field is-horizontal">
                 <div class="field-label is-normal">
@@ -49,7 +54,8 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control" [ngClass]="{'is-loading': loadingProduct}">
-                      <input formControlName="productIdentifier" (change)="getProductData()" class="input" type="text" placeholder="Informe o identificador do produto">
+                      <input formControlName="productIdentifier" (change)="getProductData()" 
+                        class="input" type="text" placeholder="Informe o identificador do produto">
                       <span class="tag is-danger" *ngIf="!form.controls.productIdentifier.valid && !form.controls.productIdentifier.pristine">Identificador do produto inválido</span>
                     </div>
                   </div>
@@ -63,7 +69,8 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <input formControlName="price" class="input" type="text" placeholder="Informe o preço">
+                      <input currencyMask formControlName="price" class="input" type="text" placeholder="Informe o preço"
+                        [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }">
                       <span class="tag is-danger" *ngIf="!form.controls.price.valid && !form.controls.price.pristine">Preço inválido</span>
                     </div>
                   </div>
@@ -77,7 +84,8 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <input formControlName="tags" class="input" type="text" placeholder="Informe as tags">
+                      <tag-input formControlName="tags" [modelAsStrings]="true" theme='minimal' [placeholder]="'Informe uma nova tag'" [secondaryPlaceholder]="'Informe tags do produto'">
+                      </tag-input>
                       <span class="tag is-danger" *ngIf="!form.controls.tags.valid && !form.controls.tags.pristine">Tags inválidas</span>
                     </div>
                   </div>
@@ -110,7 +118,7 @@
                 <div class="field-body">
                   <div class="field">
                     <div class="control">
-                      <button class="button is-primary" [disabled]="importingProduct" [ngClass]="{'is-loading': importingProduct}" (click)="submit()">
+                      <button class="button is-primary" [disabled]="importingProduct || !form.valid" [ngClass]="{'is-loading': importingProduct}" (click)="submit()">
                         Importar
                       </button>
                     </div>

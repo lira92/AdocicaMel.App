@@ -14,6 +14,7 @@ export class ImportProductPageComponent implements OnInit {
   public form: FormGroup;
   public loadingProduct: Boolean = false;
   public importingProduct: Boolean = false;
+  public errors: any[] = [];
 
   constructor(private fb: FormBuilder, private productsService: ProductService, private router: Router) {
     this.form = this.fb.group({
@@ -27,10 +28,7 @@ export class ImportProductPageComponent implements OnInit {
         Validators.min(0.01),
         Validators.required
       ])],
-      tags: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.required
-      ])]
+      tags: ['']
     });
   }
 
@@ -47,25 +45,27 @@ export class ImportProductPageComponent implements OnInit {
   getProductData() {
     this.loadingProduct = true;
     const formData = this.form.value;
-    this.productsService.getVendorProduct(formData.productIdentifier, formData.vendor).subscribe(result => {
-      this.loadingProduct = false;
-      this.product = result;
-    });
+    this.productsService
+      .getVendorProduct(formData.productIdentifier, formData.vendor)
+      .subscribe(result => {
+        this.loadingProduct = false;
+        this.product = result;
+      }, httpError => {
+        this.loadingProduct = false;
+        this.product = null;
+        this.errors = [{message: 'Não foi possível carregar o produto com este identificador'}];
+      });
   }
 
   submit() {
     this.importingProduct = true;
-    let tagsCollection = [];
     const formData = this.form.value;
-    if (formData.tags) {
-      tagsCollection = formData.tags.split(',');
-    }
 
     const request = {
       vendor: formData.vendor,
       productIdentifier: formData.productIdentifier,
       price: formData.price,
-      tags: tagsCollection
+      tags: formData.tags
     };
 
     this.productsService.importProduct(request).subscribe(result => {

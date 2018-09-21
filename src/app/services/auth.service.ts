@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { BaseService } from './base.service';
 import * as moment from 'moment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     super();
   }
 
@@ -29,27 +28,23 @@ export class AuthService extends BaseService {
   }
 
   authenticate(data: any) {
-    const dt = `grant_type=password&username=${data.username}&password=${data.password}&audience=${environment.authService.audience}` +
-    `&scope=openid&client_id=${environment.authService.clientId}&client_secret=${environment.authService.clienteSecret}`;
-    const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    const options = new RequestOptions({headers: headers});
+    const body = new HttpParams()
+      .set('grant_type', 'password')
+      .set('username', data.username)
+      .set('password', data.password)
+      .set('audience', environment.authService.audience)
+      .set('scope', 'openid')
+      .set('client_id', environment.authService.clientId)
+      .set('client_secret', environment.authService.clienteSecret);
+    const headers = new HttpHeaders(
+      { 'Content-Type': `application/x-www-form-urlencoded` }
+    );
     return this.http
-      .post(environment.authService.baseUrl + 'oauth/token', dt, options)
-      .pipe(
-        map((response) => {
-          return response.json();
-        })
-      );
+      .post<any>(environment.authService.baseUrl + 'oauth/token', body.toString(), {headers: headers});
   }
 
   getUserInfo() {
-    const options = new RequestOptions({headers: this.getHeaders()});
     return this.http
-      .get(environment.authService.baseUrl + 'userinfo', options)
-      .pipe(
-        map((response) => {
-          return response.json();
-        })
-      );
+      .get<any>(environment.authService.baseUrl + 'userinfo', {headers: this.getHeaders()});
   }
 }

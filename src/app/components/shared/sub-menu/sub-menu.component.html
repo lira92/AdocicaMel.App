@@ -14,10 +14,16 @@
   </a>
 </div>
 <div class="navbar-item">
-  <a class="button is-primary is-inverted" (click)="logout()">
+  <a *ngIf="user" class="button is-primary is-inverted" (click)="logout()">
     <span class="icon">
       <i class="fa fa-power-off"></i>
     </span>
     <span>Sair</span>
+  </a>
+  <a *ngIf="!user" routerLink="/login" class="button is-primary is-inverted">
+    <span class="icon">
+      <i class="fa fa-power-off"></i>
+    </span>
+    <span>Entrar</span>
   </a>
 </div>

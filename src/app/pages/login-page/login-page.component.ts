@@ -37,7 +37,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   submit() {
-    this.authService.authenticate(this.form.value).subscribe(result => {
+    this.authService.authenticate(this.form.value)
+    .subscribe(result => {
       localStorage.setItem('adocicamel.token', result.access_token);
       localStorage.setItem('smsi.expires', moment.utc().add(result.expires, 'seconds').toISOString());
 
@@ -45,15 +46,12 @@ export class LoginPageComponent implements OnInit {
         localStorage.setItem('adocicamel.user', JSON.stringify(userInfoResult));
         this.router.navigateByUrl('/');
       });
-    }, error => {
-      console.log(error);
-      const parsedError = JSON.parse(error._body);
-      const translatedMessage = this.translateMessage(parsedError);
+    }, httpError => {
+      const translatedMessage = this.translateMessage(httpError.error);
       this.error = {
-        ...parsedError,
+        ...httpError.error,
         translated_message: translatedMessage
       };
-      console.log(this.error);
     });
   }
 

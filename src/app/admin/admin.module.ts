@@ -6,6 +6,9 @@ import { ImportProductPageComponent } from './pages/import-product-page/import-p
 import { AsideMenuComponent } from './components/shared/aside-menu/aside-menu.component';
 import { HeadbarComponent } from './components/shared/headbar/headbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -13,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    CurrencyMaskModule,
+    TagInputModule,
   ],
   declarations: [AdminHomePageComponent, ImportProductPageComponent, AsideMenuComponent, HeadbarComponent]
 })

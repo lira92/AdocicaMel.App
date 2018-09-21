@@ -23,6 +23,8 @@
     "bulma-tagsinput": "^2.0.0",
     "core-js": "^2.5.4",
     "moment": "^2.22.2",
+    "ng2-currency-mask": "^5.3.1",
+    "ngx-chips": "^1.9.7",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
   },

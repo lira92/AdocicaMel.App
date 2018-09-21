@@ -1,9 +1,9 @@
-import { Headers } from '@angular/http';
+import { HttpHeaders } from '@angular/common/http';
 
 export abstract class BaseService {
-    getHeaders(): Headers {
+    getHeaders(): HttpHeaders {
         const access_token = localStorage.getItem('adocicamel.token');
-        const headers = new Headers(
+        const headers = new HttpHeaders(
             { 'Authorization': `Bearer ${access_token}` }
         );
         return headers;
