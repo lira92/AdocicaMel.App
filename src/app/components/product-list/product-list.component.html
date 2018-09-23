@@ -1,3 +1,50 @@
+<nav class="level">
+  <!-- Left side -->
+  <div class="level-left">
+    <div class="level-item">
+      <div class="field">
+        <p class="control">
+          <input (ngModelChange)="filter()" class="input" [(ngModel)]="searchName" type="text" placeholder="Filtrar por nome">
+        </p>
+      </div>
+    </div>
+    <div class="level-item">
+      <div class="field">
+        <p class="control">
+            <tag-input [displayBy]="'name'"
+                      [(ngModel)]="searchTags"
+                      [placeholder]="'Filtrar por tags'"
+                      [secondaryPlaceholder]="'Filtrar por tags'"
+                      [onTextChangeDebounce]="500"
+                      theme='minimal'
+                      (onSelect)="filter()"
+                      (onRemove)="filter()"
+                      (onAdd)="filter()"
+                      [onlyFromAutocomplete]="true">
+                <tag-input-dropdown
+                    [autocompleteObservable]="requestAutoCompleteTags"
+                    [minimumTextLength]="1">
+                    <ng-template let-item="item" let-index="index">
+                        {{ item.display }}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <div class="level-right">
+    <div class="select">
+      <select [(ngModel)]="order" (ngModelChange)="filter()">
+        <option value="">Ordernar Por</option>
+        <option value="price asc">Menor Preço</option>
+        <option value="price desc">Maior Preço</option>
+      </select>
+    </div>
+  </div>
+</nav>
 <div class="columns is-multiline">
     <div class="column is-3 animated slideInUp" *ngFor="let product of products">
       <div class="card">

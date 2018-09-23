@@ -5,30 +5,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
-//Routes
+// Routes
 import {AppRoutingModule} from './app.routing';
 
-//Root
+// Root
 import { AppComponent } from './app.component';
 
-//Pages
+// Pages
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 
-//Shared
+// Shared
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HeadbarComponent } from './components/shared/headbar/headbar.component';
 import { SubMenuComponent } from './components/shared/sub-menu/sub-menu.component';
 
-//Components
+// Components
 import { ProductListComponent } from './components/product-list/product-list.component';
 
-//Services
+// Services
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProductService } from './services/product.service';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { ProductService } from './services/product.service';
     ReactiveFormsModule,
     HttpModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TagInputModule,
   ],
   providers: [CartService, AuthService, ProductService],
   bootstrap: [AppComponent]
