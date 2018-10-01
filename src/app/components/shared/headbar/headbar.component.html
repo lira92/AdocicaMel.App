@@ -1,39 +1,19 @@
-<!--
-  <div class="hero-head">
-    <header class="nav">
-      <div class="container">
-        <div class="nav-left">
-          <a class="nav-item pacifico medium-text animated pulse infinite">
-            Adocica Mel Store
-          </a>
-        </div>
-        <span class="nav-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-        <app-sub-menu></app-sub-menu>
-      </div>
-    </header>
-  </div>
-</section>-->
-
 <section class="hero is-primary is-medium animated slideInDown">
   <header class="container">
       <nav class="navbar is-transparent">
-        <div class="navbar-brand animated pulse infinite">
+        <div class="navbar-brand">
           <a class="navbar-item">
             Adocica Mel Store
           </a>
-          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <div class="navbar-burger burger" [ngClass]="{'is-active': showingMobileMenu}" data-target="navbarExampleTransparentExample" (click)="showMobileMenu()">
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
-        
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
-            <app-sub-menu class="navbar-end"></app-sub-menu>
+
+        <div class="navbar-menu" [ngClass]="{'is-active': showingMobileMenu}">
+          <app-sub-menu class="navbar-end"></app-sub-menu>
         </div>
       </nav>
   </header>

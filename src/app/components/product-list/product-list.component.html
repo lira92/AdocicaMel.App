@@ -1,36 +1,28 @@
 <nav class="level">
   <!-- Left side -->
-  <div class="level-left">
+  <div class="level-left is-two-thirds">
     <div class="level-item">
-      <div class="field">
-        <p class="control">
-          <input (ngModelChange)="filter()" class="input" [(ngModel)]="searchName" type="text" placeholder="Filtrar por nome">
-        </p>
-      </div>
+      <input #searchInput class="input product-list__search-input" [(ngModel)]="searchName" type="text" placeholder="Filtrar por nome">
     </div>
     <div class="level-item">
-      <div class="field">
-        <p class="control">
-            <tag-input [displayBy]="'name'"
-                      [(ngModel)]="searchTags"
-                      [placeholder]="'Filtrar por tags'"
-                      [secondaryPlaceholder]="'Filtrar por tags'"
-                      [onTextChangeDebounce]="500"
-                      theme='minimal'
-                      (onSelect)="filter()"
-                      (onRemove)="filter()"
-                      (onAdd)="filter()"
-                      [onlyFromAutocomplete]="true">
-                <tag-input-dropdown
-                    [autocompleteObservable]="requestAutoCompleteTags"
-                    [minimumTextLength]="1">
-                    <ng-template let-item="item" let-index="index">
-                        {{ item.display }}
-                    </ng-template>
-                </tag-input-dropdown>
-            </tag-input>
-        </p>
-      </div>
+      <tag-input class="product-list__tags-input" [displayBy]="'name'"
+                [(ngModel)]="searchTags"
+                [placeholder]="'Filtrar por tags'"
+                [secondaryPlaceholder]="'Filtrar por tags'"
+                [onTextChangeDebounce]="500"
+                theme='minimal'
+                (onSelect)="filter()"
+                (onRemove)="filter()"
+                (onAdd)="filter()"
+                [onlyFromAutocomplete]="true">
+          <tag-input-dropdown
+              [autocompleteObservable]="requestAutoCompleteTags"
+              [minimumTextLength]="1">
+              <ng-template let-item="item" let-index="index">
+                  {{ item.display }}
+              </ng-template>
+          </tag-input-dropdown>
+      </tag-input>
     </div>
   </div>
 

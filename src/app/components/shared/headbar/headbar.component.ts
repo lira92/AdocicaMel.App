@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./headbar.component.css']
 })
 export class HeadbarComponent implements OnInit {
-
+  public showingMobileMenu = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  showMobileMenu() {
+    this.showingMobileMenu = !this.showingMobileMenu;
+  }
 }

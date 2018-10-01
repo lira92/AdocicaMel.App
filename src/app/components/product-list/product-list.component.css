@@ -2,3 +2,14 @@
     min-height: 50px;
     margin-bottom: 0 !important;
 }
+
+
+.product-list__tags-input {
+    width: 100%;
+}
+
+@media screen and (min-width: 800px)  {
+    .product-list__search-input {
+        min-width: 320px;
+    }
+}
