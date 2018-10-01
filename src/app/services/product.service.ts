@@ -15,7 +15,7 @@ export class ProductService extends BaseService {
 
   getTags(search: string) {
     return this.http
-      .get<any>(environment.productServiceInterface.url + `/v1/tags?tagName=${search}`)
+      .get<any>(environment.api.url + `/v1/tags?tagName=${search}`)
       .pipe(
         map(data => data.map(item => item.name))
       );
@@ -24,22 +24,22 @@ export class ProductService extends BaseService {
   getProducts(searchName: string = '', searchTags: string[] = [], sort: string = '') {
     const tagsQuery = searchTags.map(tag => `tags=${tag}`).join('&');
     return this.http
-      .get<any>(environment.productServiceInterface.url
+      .get<any>(environment.api.url
         + `/v1/products?name=${searchName}${tagsQuery ? '&' : ''}${tagsQuery}&sort=${sort}`);
   }
 
   getVendorProduct(productIdentifier: Number, vendor: String) {
     return this.http
-      .get<any>(environment.productServiceInterface.url + `/vendors/${vendor}/products/${productIdentifier}`, {headers: this.getHeaders()});
+      .get<any>(environment.api.url + `/vendors/${vendor}/products/${productIdentifier}`, {headers: this.getHeaders()});
   }
 
   getSupportedVendors() {
     return this.http
-      .get<any>(environment.productServiceInterface.url + '/vendors', {headers: this.getHeaders()});
+      .get<any>(environment.api.url + '/vendors', {headers: this.getHeaders()});
   }
 
   importProduct(requestData: any) {
     return this.http
-      .post<any>(environment.productServiceInterface.url + '/v1/products', requestData, {headers: this.getHeaders()});
+      .post<any>(environment.api.url + '/v1/products', requestData, {headers: this.getHeaders()});
   }
 }

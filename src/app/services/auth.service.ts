@@ -15,7 +15,7 @@ export class AuthService extends BaseService {
   }
 
   tokenIsValid() {
-    return moment.utc(localStorage.getItem('smsi.expires'), 'YYYY-MM-DDTHH:mm:ssZ') <= moment.utc();
+    return moment.utc(localStorage.getItem('adocicamel.expires'), 'YYYY-MM-DDTHH:mm:ssZ') <= moment.utc();
   }
 
   canActivate() {
@@ -29,22 +29,17 @@ export class AuthService extends BaseService {
 
   authenticate(data: any) {
     const body = new HttpParams()
-      .set('grant_type', 'password')
       .set('username', data.username)
-      .set('password', data.password)
-      .set('audience', environment.authService.audience)
-      .set('scope', 'openid')
-      .set('client_id', environment.authService.clientId)
-      .set('client_secret', environment.authService.clienteSecret);
+      .set('password', data.password);
     const headers = new HttpHeaders(
       { 'Content-Type': `application/x-www-form-urlencoded` }
     );
     return this.http
-      .post<any>(environment.authService.baseUrl + 'oauth/token', body.toString(), {headers: headers});
+      .post<any>(environment.api.url + '/oauth/token', body.toString(), {headers: headers});
   }
 
   getUserInfo() {
     return this.http
-      .get<any>(environment.authService.baseUrl + 'userinfo', {headers: this.getHeaders()});
+      .get<any>(environment.api.url + '/userinfo', {headers: this.getHeaders()});
   }
 }
