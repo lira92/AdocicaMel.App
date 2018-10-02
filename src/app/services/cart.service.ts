@@ -6,14 +6,14 @@ import { Observer } from 'rxjs';
   providedIn: 'root'
 })
 export class CartService {
-  public items:any[] = [];
-  cartChange:Observable<any>;
-  cartChangeObserver:Observer<any>;
+  public items: any[] = [];
+  cartChange: Observable<any>;
+  cartChangeObserver: Observer<any>;
 
   constructor() {
     this.cartChange = new Observable((observer: Observer<any>) => {
       this.cartChangeObserver = observer;
-    })
+    });
   }
 
   addItem(item) {
@@ -28,8 +28,8 @@ export class CartService {
   }
 
   updateQuantity(id, quantity) {
-    for (let i of this.items) {
-        if (i.id == id) {
+    for (const i of this.items) {
+        if (i.id === id) {
             i.quantity += +quantity;
         }
     }
@@ -37,7 +37,7 @@ export class CartService {
   }
 
   getItems(): any[] {
-    var data = localStorage.getItem('adocicamel.cart');
+    const data = localStorage.getItem('adocicamel.cart');
     if (data) {
         this.items = JSON.parse(data);
     }
@@ -46,8 +46,8 @@ export class CartService {
   }
 
   hasItem(id): boolean {
-    for (let i of this.items) {
-        if (i.id == id) {
+    for (const i of this.items) {
+        if (i.id === id) {
             return true;
         }
     }
@@ -56,9 +56,9 @@ export class CartService {
   }
 
   removeItem(id: string) {
-    for(var item of this.items) {
-        if(item.id == id) {
-            var index = this.items.indexOf(item);
+    for (const item of this.items) {
+        if (item.id === id) {
+            const index = this.items.indexOf(item);
             this.items.splice(index, 1);
         }
     }
@@ -73,8 +73,8 @@ export class CartService {
   }
 
   load() {
-    var data = localStorage.getItem('adocicamel.cart');
-    if(data) {
+    const data = localStorage.getItem('adocicamel.cart');
+    if (data) {
         this.items = JSON.parse(data);
     }
     this.cartChangeObserver.next(this.items);
@@ -87,8 +87,8 @@ export class CartService {
   }
 
   getSubTotal(): number {
-    var result: number = 0;
-    for (let i of this.items) {
+    let result = 0;
+    for (const i of this.items) {
         result += +(+i.price * +i.quantity);
     }
     this.cartChangeObserver.next(this.items);

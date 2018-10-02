@@ -38,31 +38,38 @@
   </div>
 </nav>
 <div class="columns is-multiline">
-    <div class="column is-3 animated slideInUp" *ngFor="let product of products">
-      <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img src="{{product.productImage}}" alt="Image">
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="content">
-            <div class="product-card__title">{{product.productName}}</div>
-            <br>
-            <div class="tags">
-              <span *ngFor="let tag of product.tags" class="tag">
-                {{tag}}
-              </span>
-            </div>
-            <h1 class="has-text-centered">
-              R$ {{product.price | number: '1.2-2'}}
-            </h1>
-            <button (click)="addToCart(product)" class="button is-success is-fullwidth">
-              <i class="fa fa-shopping-cart"></i>
-              &nbsp;&nbsp;&nbsp; Adicionar
-            </button>
+  <div style="width: 100%; text-align: center; color: #00d1b2;" *ngIf="loading">
+    <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="column is-3 animated slideInUp" *ngFor="let product of products">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-4by3">
+          <img src="{{product.productImage}}" alt="Image">
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="content">
+          <div class="product-card__title">{{product.productName}}</div>
+          <br>
+          <div class="tags">
+            <span *ngFor="let tag of product.tags" class="tag">
+              {{tag}}
+            </span>
           </div>
+          <h1 class="has-text-centered">
+            R$ {{product.price | number: '1.2-2'}}
+          </h1>
+          <button (click)="addToCart(product)" class="button is-success is-fullwidth">
+            <i class="fa fa-shopping-cart"></i>
+            &nbsp;&nbsp;&nbsp; Adicionar
+          </button>
         </div>
       </div>
     </div>
   </div>
+  <div style="width: 100%; text-align: center;" *ngIf="products.length < totalItems">
+    <a class="button is-primary is-rounded" [ngClass]="{'is-loading': loadingMore}" (click)="loadMore()">Carregar mais</a>
+  </div>
+</div>

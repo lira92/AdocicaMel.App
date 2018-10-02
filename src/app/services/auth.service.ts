@@ -15,7 +15,8 @@ export class AuthService extends BaseService {
   }
 
   tokenIsValid() {
-    return moment.utc(localStorage.getItem('adocicamel.expires'), 'YYYY-MM-DDTHH:mm:ssZ') <= moment.utc();
+    const expiresIn = moment(localStorage.getItem('adocicamel.expires'), 'YYYY-MM-DDTHH:mm:ssZ');
+    return moment.utc().isBefore(expiresIn);
   }
 
   canActivate() {

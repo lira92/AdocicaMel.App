@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { BaseService } from './base.service';
 import { map } from 'rxjs/operators';
@@ -21,11 +21,16 @@ export class ProductService extends BaseService {
       );
   }
 
-  getProducts(searchName: string = '', searchTags: string[] = [], sort: string = '') {
-    const tagsQuery = searchTags.map(tag => `tags=${tag}`).join('&');
+  getProducts(searchName: string = '', searchTags: string[] = [], sort: string = '', pageNumber: Number = 1) {
+    let body = new HttpParams()
+      .set('name', searchName)
+      .set('sort', sort)
+      .set('page', pageNumber.toString());
+    searchTags.forEach((tag) => {
+      body = body.append('tag', tag);
+    });
     return this.http
-      .get<any>(environment.api.url
-        + `/v1/products?name=${searchName}${tagsQuery ? '&' : ''}${tagsQuery}&sort=${sort}`);
+      .get<any>(environment.api.url + '/v1/products', { params: body });
   }
 
   getVendorProduct(productIdentifier: Number, vendor: String) {
