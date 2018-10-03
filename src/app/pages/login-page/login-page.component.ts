@@ -40,7 +40,7 @@ export class LoginPageComponent implements OnInit {
     this.authService.authenticate(this.form.value)
     .subscribe(result => {
       localStorage.setItem('adocicamel.token', result.access_token);
-      localStorage.setItem('adocicamel.expires', moment.utc().add(result.expires, 'seconds').toISOString());
+      localStorage.setItem('adocicamel.expires', moment.utc().add(result.expires_in, 'seconds').toISOString());
 
       this.authService.getUserInfo().subscribe(userInfoResult => {
         localStorage.setItem('adocicamel.user', JSON.stringify(userInfoResult));
