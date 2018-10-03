@@ -27,7 +27,7 @@ export class ProductService extends BaseService {
       .set('sort', sort)
       .set('page', pageNumber.toString());
     searchTags.forEach((tag) => {
-      body = body.append('tag', tag);
+      body = body.append('tags', tag);
     });
     return this.http
       .get<any>(environment.api.url + '/v1/products', { params: body });
