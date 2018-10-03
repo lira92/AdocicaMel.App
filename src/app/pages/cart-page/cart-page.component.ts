@@ -8,17 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent implements OnInit {
-  public items:any[] = [];
-  public discount:number = 0;
-  public deliveryFee:number = 5;
-  
-  constructor(private cartService:CartService, private router:Router) { }
+  public items: any[] = [];
+  public discount = 0;
+  public deliveryFee = 0;
+
+  constructor(private cartService: CartService, private router: Router) { }
 
   ngOnInit() {
     this.items = this.cartService.items;
   }
 
-  remove(item:any) {
+  remove(item: any) {
     this.cartService.removeItem(item.id);
   }
 
@@ -33,15 +33,15 @@ export class CartPageComponent implements OnInit {
   }
 
   checkout() {
-    var user = JSON.parse(localStorage.getItem('adocicamel.user'));
-    var data = {
+    const user = JSON.parse(localStorage.getItem('adocicamel.user'));
+    const data = {
       customer: user.id,
       deliveryFee: this.deliveryFee,
       discount: this.discount,
       items: this.cartService.items
     };
 
-    for (let i of this.cartService.items) {
+    for (const i of this.cartService.items) {
       data.items.push({product: i.id, quantity: i.quantity});
     }
 
@@ -49,7 +49,7 @@ export class CartPageComponent implements OnInit {
       alert('Pedido criado com sucesso');
       this.cartService.clear();
       this.router.navigateByUrl('/home');
-    }, 
+    },
     error => {
       console.log(error);
     });*/
